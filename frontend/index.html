@@ -23,6 +23,7 @@
         }
 
         async function submitPreFlightedGet() {
+            /* global fetch */
             let response = await fetch(url, { headers: { 'x-my-auth-token': '1234' } } );
             showResult(JSON.stringify(await response.json()))
         }        
