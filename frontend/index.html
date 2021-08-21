@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <!-- To avoid favicon errors in developer console -->
+        <link rel="icon" href="https://fav.farm/💩" />
+    </head>
+    <body>
+        <button onclick="submitSimpleGet()" >GET - Simple Request (Bypasses CORS)</button>
+        <br />
+        <br />
+        <button onclick="submitPreFlightedGet()" >GET - Preflighted Request (Makes OPTIONS request first)</button>
+        <br />
+        <br />
+        <button onclick="document.getElementById('result').innerText = ''">Clear</button>        
+        <hr />
+        <div id="result"></div>
+    </body>
+    <script>
+        const url = "https://attztqf5h1.execute-api.us-east-1.amazonaws.com/Prod"
+        async function submitSimpleGet() {
+            //simple request (no custom headers, bypasses CORS)
+            let response = await fetch(url);
+            showResult(JSON.stringify(await response.json()))
+        }
+
+        async function submitPreFlightedGet() {
+            let response = await fetch(url, { headers: { 'x-my-auth-token': '1234' } } );
+            showResult(JSON.stringify(await response.json()))
+        }        
+
+        function showResult(result) { document.getElementById("result").innerText = result }
+    </script>
+</html>
